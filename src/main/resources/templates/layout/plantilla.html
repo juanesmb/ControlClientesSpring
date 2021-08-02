@@ -1,0 +1,16 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Plantilla</title>
+        <meta charset="UTF-8"/>
+        
+    </head>
+    <body>
+        <header th:fragment="header"> <!-- sintaxis para declarar este elemento y todo lo que esté dentro de el como una plantilla reutilizable -->
+            <h1>Control de clientes</h1>
+        </header>
+        
+        <footer th:fragment="footer">
+            <p>Derechos reservados <a href="https://www.youtube.com/watch?v=jDuzV2DDnM4" target="_blank">Qué es ser full stack</a></p>
+        </footer>
+    </body>
+</html>

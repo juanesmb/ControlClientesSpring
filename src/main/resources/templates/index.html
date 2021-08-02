@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <h1>Inicio</h1>
+        <header th:replace="layout/plantilla :: header"></header> <!-- sintaxis para llamar una plantilla con thymeleaf -->
         <a th:href="@{/agregar}">Crear Persona</a>
         <div th:if="${personas != null and !personas.empty}"> 
             <table border="1">
@@ -31,6 +31,7 @@
         </div>
         <div th:if="${personas == null or personas.empty}"> 
             La lista de personas está vacía
-        </div>    
+        </div>   
+        <footer th:replace="layout/plantilla :: footer"></footer>
     </body>
 </html>
