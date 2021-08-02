@@ -3,10 +3,12 @@ package com.example.HolaSpring.web;
 
 import com.example.HolaSpring.domain.Persona;
 import com.example.HolaSpring.service.PersonaService;
+import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -33,8 +35,12 @@ public class ControladorInicio {
     }
     
     @PostMapping("/guardar")
-    public String guardar(Persona persona)
+    public String guardar(@Valid Persona persona, Errors errores) //etiqueta para validar errores recibidos por el objeto persona
     {
+        if(errores.hasErrors()){
+            return "modificar";
+        }
+        
         this.personaService.guardar(persona);
         return "redirect:/";
     }
