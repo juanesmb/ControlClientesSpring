@@ -15,6 +15,10 @@
                 <a th:href="@{/(lang=es)}">ES</a> |
                 <a th:href="@{/(lang=en)}">EN</a>
                 <span> [[#{plantilla.pie-pagina}]] <a href="https://www.youtube.com/watch?v=jDuzV2DDnM4" target="_blank">Qué es ser full stack</a></span> <!-- 2da sintaxis para añadirle texto a la etiqueta mediante el uso de mensajes con un archivo ".properties" y utilizadno doble corchete para llamar cada mensaje -->
+                <form method="POST" th:action="@{/logout}"> <!-- Formulario para el logout de la cuenta utilizando codigo js -->
+                    <!--<input type="submit" value="logout" onclick="this.parentNode.submit();"/> primera forma de enviar la peticion para realizar logout -->
+                    <a href="#" onclick="this.parentNode.submit();">Logout</a> <!-- segunda forma de crear enviar la peticion para realizar logout -->
+                </form>
             </div>
         </footer>
     </body>
