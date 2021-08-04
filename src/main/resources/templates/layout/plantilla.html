@@ -10,7 +10,12 @@
         </header>
         
         <footer th:fragment="footer">
-            <p> [[#{plantilla.pie-pagina}]] <a href="https://www.youtube.com/watch?v=jDuzV2DDnM4" target="_blank">Qué es ser full stack</a></p> <!-- 2da sintaxis para añadirle texto a la etiqueta mediante el uso de mensajes con un archivo ".properties" y utilizadno doble corchete para llamar cada mensaje -->
+            <div>
+                <br/>
+                <a th:href="@{/(lang=es)}">ES</a> |
+                <a th:href="@{/(lang=en)}">EN</a>
+                <span> [[#{plantilla.pie-pagina}]] <a href="https://www.youtube.com/watch?v=jDuzV2DDnM4" target="_blank">Qué es ser full stack</a></span> <!-- 2da sintaxis para añadirle texto a la etiqueta mediante el uso de mensajes con un archivo ".properties" y utilizadno doble corchete para llamar cada mensaje -->
+            </div>
         </footer>
     </body>
 </html>
