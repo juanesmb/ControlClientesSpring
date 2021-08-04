@@ -6,11 +6,11 @@
     </head>
     <body>
         <header th:fragment="header"> <!-- sintaxis para declarar este elemento y todo lo que esté dentro de el como una plantilla reutilizable -->
-            <h1>Control de clientes</h1>
+            <h1 th:text="#{plantilla.titulo}">Titulo</h1> <!-- 1ra sintaxis para añadirle texto a la etiqueta mediante el uso de mensajes con un archivo ".properties" -->
         </header>
         
         <footer th:fragment="footer">
-            <p>Derechos reservados <a href="https://www.youtube.com/watch?v=jDuzV2DDnM4" target="_blank">Qué es ser full stack</a></p>
+            <p> [[#{plantilla.pie-pagina}]] <a href="https://www.youtube.com/watch?v=jDuzV2DDnM4" target="_blank">Qué es ser full stack</a></p> <!-- 2da sintaxis para añadirle texto a la etiqueta mediante el uso de mensajes con un archivo ".properties" y utilizadno doble corchete para llamar cada mensaje -->
         </footer>
     </body>
 </html>
