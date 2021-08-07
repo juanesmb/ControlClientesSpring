@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"> <!-- properties para agregar al html las funcionalidades de thymeleaf, ignorar errores de sintaxis ocasionados por thymeleaf y seguridad con thymeleaf -->
     <head>
         <title>Inicio</title>
         <meta charset="UTF-8">
@@ -6,7 +6,7 @@
     </head>
     <body>
         <header th:replace="layout/plantilla :: header"></header> <!-- sintaxis para llamar una plantilla con thymeleaf -->
-        <a th:href="@{/agregar}" th:text="#{persona.crear}"></a>
+        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/agregar}" th:text="#{persona.crear}"></a>
         <div th:if="${personas != null and !personas.empty}"> 
             <table border="1">
                 <tr>
@@ -14,8 +14,8 @@
                     <th>[[#{persona.apellido}]]</th>
                     <th>[[#{persona.email}]]</th>
                     <th>[[#{persona.telefono}]]</th>
-                    <th>[[#{accion.editar}]]</th>
-                    <th>[[#{accion.eliminar}]]</th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{accion.editar}]]</th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{accion.eliminar}]]</th>
                 </tr>
 
                 <tr th:each="persona : ${personas}">
@@ -23,9 +23,9 @@
                     <td th:text="${persona.apellido}">Mostrar apellido</td>
                     <td th:text="${persona.email}">Mostrar email</td>
                     <td th:text="${persona.telefono}">Mostrar telefono</td> 
-                    <td><a th:href="@{/editar/} + ${persona.idPersona}" th:text="#{accion.editar}"></a></td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/editar/} + ${persona.idPersona}" th:text="#{accion.editar}"></a></td>
                     <!--<td><a th:href="@{/eliminar/} + ${persona.idPersona}" th:text="eliminar"></a></td> --> <!-- 1ra forma de realizar una peticion por path  -->
-                    <td><a th:href="@{/eliminar(idPersona=${persona.idPersona})}" th:text="#{accion.eliminar}"></a></td>  <!-- 2da forma de realizar una peticion por query paramether-->
+                    <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/eliminar(idPersona=${persona.idPersona})}" th:text="#{accion.eliminar}"></a></td>  <!-- 2da forma de realizar una peticion por query paramether-->
                 </tr>
             </table>
         </div>

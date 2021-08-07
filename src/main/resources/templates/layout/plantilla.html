@@ -1,8 +1,7 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"> <!-- properties para agregar al html las funcionalidades de thymeleaf, ignorar errores de sintaxis ocasionados por thymeleaf y seguridad con thymeleaf -->
     <head>
         <title>Plantilla</title>
         <meta charset="UTF-8"/>
-        
     </head>
     <body>
         <header th:fragment="header"> <!-- sintaxis para declarar este elemento y todo lo que esté dentro de el como una plantilla reutilizable -->
@@ -16,6 +15,8 @@
                 <a th:href="@{/(lang=en)}">EN</a>
                 <span> [[#{plantilla.pie-pagina}]] <a href="https://www.youtube.com/watch?v=jDuzV2DDnM4" target="_blank">Qué es ser full stack</a></span> <!-- 2da sintaxis para añadirle texto a la etiqueta mediante el uso de mensajes con un archivo ".properties" y utilizadno doble corchete para llamar cada mensaje -->
                 <form method="POST" th:action="@{/logout}"> <!-- Formulario para el logout de la cuenta utilizando codigo js -->
+                    <b>User:</b> <span sec:authentication="name">Usuario que hizo login</span> |<!--etiqueta para mostrar el usuario que hizo login-->
+                    <b>Roles:</b> <span sec:authentication="principal.authorities">Roles</span> | <!-- etiqueta para mostrar los roles que tiene el usuario que hizo login-->
                     <!--<input type="submit" value="logout" onclick="this.parentNode.submit();"/> primera forma de enviar la peticion para realizar logout -->
                     <a href="#" onclick="this.parentNode.submit();">Logout</a> <!-- segunda forma de crear enviar la peticion para realizar logout -->
                 </form>
