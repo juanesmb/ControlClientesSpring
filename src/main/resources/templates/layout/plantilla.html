@@ -1,25 +1,72 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"> <!-- properties para agregar al html las funcionalidades de thymeleaf, ignorar errores de sintaxis ocasionados por thymeleaf y seguridad con thymeleaf -->
-    <head>
+    <head th:fragment="head">
         <title>Plantilla</title>
         <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/> <!-- etiqueta para agregar estilos css de bootstrap importantolo desde dependencias -->
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/> <!-- etiqueta para agregar fuentes de font-awesome importantolo desde dependencias -->
+        <script th:src="@{/webjars/jquery.min.js}"></script>
+        <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
     </head>
     <body>
         <header th:fragment="header"> <!-- sintaxis para declarar este elemento y todo lo que esté dentro de el como una plantilla reutilizable -->
-            <h1 th:text="#{plantilla.titulo}">Titulo</h1> <!-- 1ra sintaxis para añadirle texto a la etiqueta mediante el uso de mensajes con un archivo ".properties" -->
+            <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
+                <div class="container">
+                    <a class="navbar-brand" th:href="@{/}" th:text="#{plantilla.titulo}"></a> <!--1ra sintaxis para añadirle texto a la etiqueta mediante el uso de mensajes con un archivo ".properties" -->
+                    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" type="button" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item px-2">
+                                <a class="nav-link active" th:href="@{/}" th:text="#{barra.titulo}">Inicio</a>
+                            </li>
+                        </ul>
+                        <ul sec:authorize="isAuthenticated()" class="navbar-nav ml-auto">
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="#" style="margin-top: .8em">
+                                    <i class="fas fa-user"></i>
+                                    <span th:text="#{barra.bienvenido}">Bienvenido:</span>
+                                    <span sec:authentication="name">Usuario</span> <!-- etiqueta para obtener el nombre del usuario que se ha logueado -->
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <form method="POST" th:action="@{/logout}"><!-- Formulario para el logout de la cuenta utilizando codigo js -->
+                                    <!--<input type="submit" value="logout" onclick="this.parentNode.submit();"/> primera forma de enviar la peticion para realizar logout -->
+                                    <a href="#" onclick="this.parentNode.submit();" class="nav-link" style="margin-top: .8em"><!-- segunda forma de crear enviar la peticion para realizar logout -->
+                                        <i class="fas fa-user-times"></i> [[#{barra.salir}]]
+                                    </a>
+                                    <!-- <b>Roles:</b> <span sec:authentication="principal.authorities">Roles</span> | etiqueta para mostrar los roles que tiene el usuario que hizo login-->
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <section id="main-header" class="py-2 bg-info text-white">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h1>
+                                <i class="fas fa-cog"></i>[[#{plantilla.titulo}]]
+                            </h1>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
         </header>
-        
-        <footer th:fragment="footer">
-            <div>
-                <br/>
-                <a th:href="@{/(lang=es)}">ES</a> |
-                <a th:href="@{/(lang=en)}">EN</a>
-                <span> [[#{plantilla.pie-pagina}]] <a href="https://www.youtube.com/watch?v=jDuzV2DDnM4" target="_blank">Qué es ser full stack</a></span> <!-- 2da sintaxis para añadirle texto a la etiqueta mediante el uso de mensajes con un archivo ".properties" y utilizadno doble corchete para llamar cada mensaje -->
-                <form method="POST" th:action="@{/logout}"> <!-- Formulario para el logout de la cuenta utilizando codigo js -->
-                    <b>User:</b> <span sec:authentication="name">Usuario que hizo login</span> |<!--etiqueta para mostrar el usuario que hizo login-->
-                    <b>Roles:</b> <span sec:authentication="principal.authorities">Roles</span> | <!-- etiqueta para mostrar los roles que tiene el usuario que hizo login-->
-                    <!--<input type="submit" value="logout" onclick="this.parentNode.submit();"/> primera forma de enviar la peticion para realizar logout -->
-                    <a href="#" onclick="this.parentNode.submit();">Logout</a> <!-- segunda forma de crear enviar la peticion para realizar logout -->
-                </form>
+
+        <footer th:fragment="footer" class="bg-warning text-white mt-5 p-5">
+            <div class="container">
+                <div class="col">
+                    <p class="lead text-center">
+                        <a th:href="@{/(lang=es)}">ES</a> |
+                        <a th:href="@{/(lang=en)}">EN</a>
+                        <span> [[#{plantilla.pie-pagina}]] &copy;<a href="https://www.youtube.com/watch?v=jDuzV2DDnM4" target="_blank">Qué es ser full stack</a></span> <!-- 2da sintaxis para añadirle texto a la etiqueta mediante el uso de mensajes con un archivo ".properties" y utilizadno doble corchete para llamar cada mensaje -->
+                    </p>
+                </div>
             </div>
         </footer>
     </body>

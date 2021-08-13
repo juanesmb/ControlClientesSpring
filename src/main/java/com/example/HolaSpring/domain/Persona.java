@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -20,7 +21,7 @@ public class Persona implements Serializable {
     @NotEmpty
     private String nombre;
     
-    @NotEmpty
+    @NotEmpty //para indicar que las cadenas no pueden quedar vacías
     private String apellido;
     
     @NotEmpty
@@ -28,4 +29,7 @@ public class Persona implements Serializable {
     private String email;
     
     private String telefono;
+    
+    @NotNull //para indicar que el double no puede quedar vacío
+    private Double saldo;
 }
